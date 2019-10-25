@@ -11,7 +11,10 @@
     "deploy": "git push heroku master"
   },
   "keywords": [],
-  "author": "",
+  "engines": {
+       "node": "12.9.1"
+     },
+  "author": "Chau Tran",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
