@@ -1,5 +1,5 @@
 TRUNCATE
-  blogful_comments,
-  blogful_articles,
-  blogful_users
+  imagery_comments,
+  imagery_images,
+  imagery_users
   RESTART IDENTITY CASCADE;
