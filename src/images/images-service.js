@@ -74,6 +74,16 @@ const ImagesService = {
         )
             .groupBy('comm.id', 'usr.id')
     },
+    postImage(db, newImg){
+      return db
+      .insert(newImg)
+      .into('imagery_images')
+        .returning('*')
+        .then(([image]) => image)
+        .then(image =>
+          ImagesService.getById(db, image.id)
+        )
+    },
     serializeImage(image) {
         const { author } = image
         return {

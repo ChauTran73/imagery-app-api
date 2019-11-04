@@ -1,7 +1,8 @@
 const express = require('express')
 const ImagesService = require('./images-service')
-
+const jsonBodyParser = express.json()
 const imagesRouter = express.Router()
+const path = require('path')
 
 imagesRouter
     .route('/')
@@ -19,6 +20,31 @@ imagesRouter
 .all(checkImageExists)
 .get((req,res) => {
     res.json(ImagesService.serializeImage(res.image))
+})
+imagesRouter
+.route('/')
+.post(jsonBodyParser, (req, res, next) => {
+    const { title, description, image_url } = req.body
+    const newImg = { title, description, image_url }
+    if(!title){
+        return res.status(400).json({
+            error: `Missing title in request body`
+          })
+    }
+    if(!image_url){
+        return res.status(400).json({
+            error: `Missing image_url in request body`
+          })
+    }
+    ImagesService.postImage(req.app.get('db'), newImg)
+    .then(image => {
+        res
+          .status(201)
+          .location(path.posix.join(req.originalUrl, `/${image.id}`))
+          .json(ImagesService.serializeImage(image))
+      })
+      .catch(next)
+    
 })
 imagesRouter
 .route('/:image_id/comments/')
