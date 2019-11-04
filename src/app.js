@@ -8,6 +8,8 @@ const { NODE_ENV } = require('./config')
 const usersRouter = require('./users/users-router')
 const imagesRouter = require('./images/images-router')
 const commentsRouter = require('./comments/comments-router')
+const authRouter = require('./auth/auth-router')
+
 const app = express()
 const morganOption = (NODE_ENV === 'production'? 'tiny'
 : 'common');
@@ -18,6 +20,7 @@ app.use(helmet())
 app.use('/api/users', usersRouter)
 app.use('/api/images', imagesRouter)
 app.use('/api/comments', commentsRouter)
+app.use('/api/auth', authRouter)
 
 // app.use(
 //   cors({

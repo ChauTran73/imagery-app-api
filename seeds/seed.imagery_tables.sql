@@ -6,14 +6,14 @@ TRUNCATE
   imagery_users
   RESTART IDENTITY CASCADE;
 
-INSERT INTO imagery_users (email, full_name, password)
+INSERT INTO imagery_users (email, full_name, user_name, password)
 VALUES
-  ('dunder.mifflin@yahoo.com', 'Dunder Mifflin',  'password'),
-  ('b.deboop@gmail.com', 'Bodeep Deboop',  'bo-password'),
-  ('c.bloggs@hotmail.com', 'Charlie Bloggs',  'charlie-password'),
-  ('s.smith@gmail.com', 'Sam Smith',  'sam-password'),
-  ('lexlor@yahoo.com', 'Alex Taylor',  'lex-password'),
-  ('wippy123@outlook.com', 'Ping Won In', 'ping-password');
+  ('dunder.mifflin@yahoo.com', 'Dunder Mifflin', 'dunder', '$2a$12$6/Fr5twEQQ3SATS5sqFnBe8G12xBywd.XAB7U.b3lSwc.QVB3bica'),
+  ('b.deboop@gmail.com', 'Bodeep Deboop', 'bodeep123', '$2a$12$1g7/MRzWkMziBzk9Ftkto.QWY1RtToKBM2gPhvagoDiU70dd67Cb6'),
+  ('c.bloggs@hotmail.com', 'Charlie Bloggs', 'Bloggs_345', '$2a$12$i8CIicQLCWk8nD3LW9uoSuMnj2C4EWRqyFns3fsJI/j5wtzDg.p2.'),
+  ('s.smith@gmail.com', 'Sam Smith', 'SSmith', '$2a$12$jOdsIQr.EPxO/a0y0YWDTevU9d7Lx6IqOg9DgXu/Y8Ppu9h0NPidS'),
+  ('lexlor@yahoo.com', 'Alex Taylor', 'LexTay' , '$2a$12$5gwMNEG0GIC/VL3sknmkJumzMgtf/gC1m6B/9AN2S0WvyLCcBXWaW'),
+  ('wippy123@outlook.com', 'Ping Won In', 'PingPing', '$2a$12$7Lg8kXW6IrjbeW13LhH6meoAJNzVi1dhxNBD0LMexNU6JFXut5vyG');
 
 INSERT INTO imagery_images (title, author_id, description, image_url)
 VALUES
