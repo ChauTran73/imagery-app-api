@@ -17,5 +17,11 @@ const AuthService = {
             algorithm: 'HS256',
         })
     },
+    verifyJwt(token) {
+        //throw an error when the secret is wrong
+        return jwt.verify(token, config.JWT_SECRET, {
+            algorithms: ['HS256'],
+        })
+    },
 }
 module.exports = AuthService;

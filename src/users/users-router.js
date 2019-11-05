@@ -24,8 +24,16 @@ usersRouter
             .catch(next)
     })
     .post(jsonParser, (req, res, next) => {
-        const { full_name, email, password } = req.body;
-        const newUser = { full_name, email }
+        //get form credentials passed down from the client in the request body
+        const { full_name, user_name, email, password } = req.body;
+        //set newUser equal the one from req body 
+        const newUser = {
+            full_name,
+            user_name,
+            password,
+            email,
+            date_created: 'now()'
+        }
 
         for (const [key, value] of Object.entries(newUser)) {
             if (value == null)
@@ -33,19 +41,44 @@ usersRouter
                     error: { message: `Missing '${key}' in request body` }
                 })
         }
+        //validate password
+        const passwordError = UsersService.validatePassword(password)
+        if (passwordError)
+            return res.status(400).json({ error: passwordError })
 
-        newUser.password = password;
-
-        UsersService.insertUser(
+        //set newUser password to the password got from req body
+        // newUser.password = password;
+        UsersService.hasUserWithUserName(
+            req.app.get('db'),
+            user_name
+        )
+            .then(hasUserWithUserName => {
+                if (hasUserWithUserName)
+                    return res.status(400).json({ error: `Username already taken` })
+                res.status(201)
+                    .location(path.posix.join(req.originalUrl, `/whatever`))
+                    .json({
+                        id: 'whatever',
+                        user_name,
+                        full_name,
+                        email,
+                        date_created: Date.now(),
+                    })
+            })
+            .catch(next)
+        return UsersService.insertUser(
             req.app.get('db'),
             newUser
         )
             .then(user => {
-                res.status(201)
+                console.log(user)
+                res.status(201) //send status 201 - created to indicate that a newUser has been created in the db
                     .location(path.posix.join(req.originalUrl, `/${user.id}`))
                     .json(serializeUser(user))
             })
             .catch(next)
+
+
     })
 
 usersRouter
@@ -72,7 +105,7 @@ usersRouter
     .delete((req, res, next) => {
         UsersService.deleteUser(
             req.app.get('db'),
-                req.params.user_id
+            req.params.user_id
         )
             .then(numRowsAffected => {
                 res.status(204).end()
