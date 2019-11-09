@@ -1,7 +1,9 @@
+//CommentsService file is to interact with and manipulate the database using PostgreSql syntax
+
 const xss = require('xss')
 
 const CommentsService = {
-    getById(db, id) {
+    getById(db, id) { //get the comment by id
         return db
         .from('imagery_comments AS comm')
         .select(

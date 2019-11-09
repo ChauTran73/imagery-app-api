@@ -5,7 +5,7 @@ const jsonBodyParser = express.json()
 
 authRouter
     .post('/login', jsonBodyParser, (req, res, next) => {
-        //get username and password out of request body
+        //get username and password out of request body sent from client
         const { user_name, password } = req.body
         //set loginUser with the username and password taken from the req body
         const loginUser = { user_name, password }
@@ -37,6 +37,8 @@ authRouter
                     const payload = { user_id: dbUser.id }
                     res.send({
                         authToken: AuthService.createJwt(sub, payload),
+                        
+                        sub //send user_name back to display on navbar
                     })
                     res.send('ok')
                 })

@@ -3,5 +3,7 @@ CREATE TABLE imagery_images (
     title TEXT NOT NULL,
     description TEXT,
     image_url TEXT,
+    -- author_id INTEGER
+    --     REFERENCES imagery_users(id) ON DELETE CASCADE NOT NULL,
     date_created TIMESTAMP DEFAULT now() NOT NULL
 );

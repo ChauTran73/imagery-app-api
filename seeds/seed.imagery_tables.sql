@@ -15,6 +15,7 @@ VALUES
   ('lexlor@yahoo.com', 'Alex Taylor', 'LexTay' , '$2a$12$5gwMNEG0GIC/VL3sknmkJumzMgtf/gC1m6B/9AN2S0WvyLCcBXWaW'),
   ('wippy123@outlook.com', 'Ping Won In', 'PingPing', '$2a$12$7Lg8kXW6IrjbeW13LhH6meoAJNzVi1dhxNBD0LMexNU6JFXut5vyG');
 
+
 INSERT INTO imagery_images (title, author_id, description, image_url)
 VALUES
   ('First image!', 1,

@@ -24,8 +24,9 @@ imagesRouter
 imagesRouter
 .route('/')
 .post(jsonBodyParser, (req, res, next) => {
-    const { title, description, image_url } = req.body
+    const { title, description, image_url } = req.body //requested from the client
     const newImg = { title, description, image_url }
+
     if(!title){
         return res.status(400).json({
             error: `Missing title in request body`
@@ -36,6 +37,9 @@ imagesRouter
             error: `Missing image_url in request body`
           })
     }
+    
+     newImg.author_id = req.author.id 
+
     ImagesService.postImage(req.app.get('db'), newImg)
     .then(image => {
         res

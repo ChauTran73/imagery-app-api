@@ -7,6 +7,8 @@ CREATE TABLE imagery_users(
     date_created TIMESTAMP DEFAULT now() not null,
     date_modified TIMESTAMP
 );
+/* here just in case the image has an author (user)
+*/
 ALTER TABLE imagery_images
     ADD COLUMN
         author_id INTEGER REFERENCES imagery_users(id)

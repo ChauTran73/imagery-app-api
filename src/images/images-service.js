@@ -19,6 +19,7 @@ const ImagesService = {
               'id', usr.id,
               'email', usr.email,
               'full_name', usr.full_name,
+              'user_name', usr.user_name,
               'date_created', usr.date_created,
               'date_modified', usr.date_modified
             )
@@ -84,6 +85,9 @@ const ImagesService = {
           ImagesService.getById(db, image.id)
         )
     },
+    getImagesForUser(){
+      
+    },
     serializeImage(image) {
         const { author } = image
         return {
@@ -96,6 +100,7 @@ const ImagesService = {
             author: {
                 id: author.id,
                 full_name: author.full_name,
+                user_name: author.user_name,
                 email: author.email,
                 date_created: new Date(author.date_created),
                 date_modified: new Date(author.date_modified) || null
