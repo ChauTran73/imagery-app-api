@@ -3,7 +3,7 @@
 const xss = require('xss')
 
 const CommentsService = {
-    getById(db, id) { //get the comment by id
+    getById(db, id) { //get the comment by user id
         return db
         .from('imagery_comments AS comm')
         .select(
@@ -19,7 +19,7 @@ const CommentsService = {
                         usr.id,
                         usr.email,
                         usr.full_name,
-                        
+                        usr.user_name,
                         usr.date_created,
                         usr.date_modified
                     ) tmp)

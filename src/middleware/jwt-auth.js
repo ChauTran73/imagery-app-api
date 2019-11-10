@@ -9,7 +9,7 @@ function requireAuth(req, res, next) {
         bearerToken = authToken.slice(7, authToken.length)
     }
     try {
-        // AuthService.verifyJwt(bearerToken)
+      
         const payload = AuthService.verifyJwt(bearerToken)
         AuthService.getUserWithUserName(
             req.app.get('db'),
@@ -30,34 +30,6 @@ function requireAuth(req, res, next) {
     }
     // console.log(authToken)
 
-
-    const [tokenUserName, tokenPassword] = AuthService.parseBasicToken(basicToken)
-
-    if (!tokenUserName || !tokenPassword) {
-        return res.status(401).json({ error: 'Unauthorized request' })
-    }
-
-    AuthService.getUserWithUserName(
-        req.app.get('db'),
-        tokenUserName
-    )
-        .then(user => {
-            //   if (!user || user.password !== tokenPassword) 
-            if (!user) {
-                return res.status(401).json({ error: 'Unauthorized request' })
-            }
-
-            return AuthService.comparePasswords(tokenPassword, user.password)
-                .then(passwordsMatch => {
-                    if (!passwordsMatch) {
-                        return res.status(401).json({ error: 'Unauthorized request' })
-                    }
-
-                    req.user = user
-                    next()
-                })
-        })
-        .catch(next)
 }
 
 
