@@ -62,5 +62,37 @@ const UsersService = {
             .first()
             .then(user => !!user)
     },
+    getImagesForUser(db, user_id) { //get all images created by a user 
+        return db
+            .from('imagery_images AS image')
+            .select(
+                'image.id',
+                'image.title',
+                'image.image_url',
+                'image.description',
+                db.raw(
+                    `json_strip_nulls(
+                    row_to_json(
+                        (SELECT tmp FROM (
+                            SELECT
+                            usr.id,
+                  usr.email,
+                  usr.full_name,
+                  usr.user_name,
+                  usr.date_created,
+                  usr.date_modified
+              ) tmp)
+            )
+          ) AS "author"`
+                )
+            )
+            .where('image.author_id', user_id)
+            .leftJoin(
+                'imagery_users AS usr',
+                'image.author_id',
+                'usr.id',
+        )
+            .groupBy('image.id', 'usr.id')
+    },
 }
 module.exports = UsersService;

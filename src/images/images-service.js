@@ -40,12 +40,12 @@ const ImagesService = {
     
 
     },
-    getById(db, id) {
+    getById(db, id) { //get a single image based on image id
         return ImagesService.getAllImages(db)
             .where('img.id', id)
             .first()
     },
-    getCommentsForImage(db, image_id) {
+    getCommentsForImage(db, image_id) { //get all comments on an image
         return db
             .from('imagery_comments AS comm')
             .select(
@@ -75,7 +75,7 @@ const ImagesService = {
         )
             .groupBy('comm.id', 'usr.id')
     },
-    postImage(db, newImg){
+    postImage(db, newImg){ //create a new image
       return db
       .insert(newImg)
       .into('imagery_images')
@@ -84,9 +84,6 @@ const ImagesService = {
         .then(image =>
           ImagesService.getById(db, image.id)
         )
-    },
-    getImagesForUser(){
-      
     },
     serializeImage(image) {
         const { author } = image
