@@ -38,7 +38,8 @@ authRouter
                     res.send({
                         authToken: AuthService.createJwt(sub, payload),
                         
-                        sub //send user_name back to display on navbar
+                        sub, //send user_name back to display on navbar
+                        
                     })
                     res.send('ok')
                 })

@@ -3,6 +3,7 @@ const ImagesService = require('./images-service')
 const jsonBodyParser = express.json()
 const imagesRouter = express.Router()
 const path = require('path')
+const { requireAuth } = require('../middleware/jwt-auth')
 
 imagesRouter
     .route('/')
@@ -23,7 +24,7 @@ imagesRouter
 })
 imagesRouter
 .route('/')
-.post(jsonBodyParser, (req, res, next) => {
+.post(requireAuth, jsonBodyParser, (req, res, next) => {
     const { title, description, image_url } = req.body //requested from the client
     const newImg = { title, description, image_url }
 
@@ -38,7 +39,7 @@ imagesRouter
           })
     }
     
-     newImg.author_id = req.author.id 
+    newImg.author_id = req.user.id
 
     ImagesService.postImage(req.app.get('db'), newImg)
     .then(image => {
