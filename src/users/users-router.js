@@ -5,6 +5,7 @@ const UsersService = require('./users-service')
 const ImagesService = require('../images/images-service')
 const usersRouter = express.Router()
 const jsonParser = express.json()
+const { requireAuth } = require('../middleware/jwt-auth')
 
 const serializeUser = user => ({
     id: user.id,
@@ -84,12 +85,13 @@ usersRouter
     })
 //get images for user here
 usersRouter
-    .route('/:user_id/images/')
+    .route('/images')
     // .all(checkImageExists)
-    .get((req, res, next) => {
+    .get(requireAuth, (req, res, next) => {
+        console.log(req.user)
         UsersService.getImagesForUser(
             req.app.get('db'),
-            req.params.user_id
+            req.user.id
         )
             .then(images => {
                 res.json(images.map(ImagesService.serializeImage))
