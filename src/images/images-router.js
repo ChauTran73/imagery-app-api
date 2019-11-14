@@ -23,8 +23,14 @@ imagesRouter
     res.json(ImagesService.serializeImage(res.image))
 
   })
-  .delete((req, res) => {
-    res.status(204)
+  .delete((req, res, next) => {
+    ImagesService.deleteImage(
+      req.app.get('db'),
+      req.params.image_id
+    )
+      .then(numRowsAffected => {
+        res.status(204).end()
+      }).catch(next)
   })
 imagesRouter
   .route('/')
