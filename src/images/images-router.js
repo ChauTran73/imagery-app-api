@@ -19,16 +19,16 @@ imagesRouter
 imagesRouter
   .route('/:image_id')
   .all(checkImageExists)
-  .get((req, res) => {
+  .get(requireAuth, (req, res) => {
     res.json(ImagesService.serializeImage(res.image))
 
   })
-  .delete((req, res, next) => {
+  .delete(requireAuth, (req, res, next) => {
     ImagesService.deleteImage(
       req.app.get('db'),
       req.params.image_id
     )
-      .then(numRowsAffected => {
+    .then(numRowsAffected => {
         res.status(204).end()
       }).catch(next)
   })
@@ -64,7 +64,7 @@ imagesRouter
 imagesRouter
   .route('/:image_id/comments/')
   .all(checkImageExists)
-  .get((req, res, next) => {
+  .get(requireAuth, (req, res, next) => {
     ImagesService.getCommentsForImage(
       req.app.get('db'),
       req.params.image_id
