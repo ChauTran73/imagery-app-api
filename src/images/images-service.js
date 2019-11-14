@@ -85,6 +85,12 @@ const ImagesService = {
           ImagesService.getById(db, image.id)
         )
     },
+    deleteImage(db, id){
+      return db
+            .from('imagery_images')
+            .where({ id })
+            .delete()
+    },
     serializeImage(image) {
         const { author } = image
         return {
