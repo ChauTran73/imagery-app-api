@@ -19,7 +19,6 @@ commentsRouter
     
     newComment.user_id = req.user.id
     
-
     CommentsService.insertComment(
       req.app.get('db'),
       newComment
@@ -31,6 +30,19 @@ commentsRouter
           .json(CommentsService.serializeComment(comment))
       })
       .catch(next)
+      
     })
+commentsRouter
+.route('/:id')
+.delete(requireAuth, (req, res, next) => {
+  CommentsService.deleteComment(
+    req.app.get('db'),
+    req.params.id
+  )
+  .then(numRowsAffected => {
+      res.status(204).end()
+    }).catch(next)
+  })
+    
 
 module.exports = commentsRouter;
