@@ -44,10 +44,10 @@ usersRouter
                             error: { message: `Missing '${key}' in request body` }
                         })
                 }
-                //validate password
-                const passwordError = UsersService.validatePassword(password)
-                if (passwordError)
-                    return res.status(400).json({ error: passwordError })
+                //validate password: backlog
+                // const passwordError = UsersService.validatePassword(password)
+                // if (passwordError)
+                //     return res.status(400).json({ error: passwordError })
 
                 //set newUser password to the password got from req body
                 // newUser.password = password;
@@ -83,7 +83,7 @@ usersRouter
 
             })
     })
-//get images for user here
+//get images for user 
 usersRouter
     .route('/images')
     // .all(checkImageExists)
