@@ -19,7 +19,7 @@ imagesRouter
 imagesRouter
   .route('/:image_id')
   .all(checkImageExists)
-  .get(requireAuth, (req, res) => {
+  .get((req, res) => {
     res.json(ImagesService.serializeImage(res.image))
 
   })
@@ -64,7 +64,7 @@ imagesRouter
 imagesRouter
   .route('/:image_id/comments/')
   .all(checkImageExists)
-  .get(requireAuth, (req, res, next) => {
+  .get((req, res, next) => {
     ImagesService.getCommentsForImage(
       req.app.get('db'),
       req.params.image_id
