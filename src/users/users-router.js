@@ -95,7 +95,7 @@ usersRouter
         )
             .then(images => {
                 res.json(images.map(ImagesService.serializeImage))
-            })
+})
             .catch(next)
     })
 
