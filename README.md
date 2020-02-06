@@ -28,7 +28,37 @@ Complete the following steps to clone the server:
 8. Create the test database `createdb -U dunder-mifflin imagery-app-test`
 9. Run the migrations `npm run migrate`
 
+## Endpoints:
+- GET /api/images
+    - Returns all images from the db
 
+- GET /api/images/:imageId
+    - Returns all a single image
+
+- GET /api/images/:imageId/comments
+    - Returns all comments on a single image
+
+- GET /api/products
+    - Returns all the prodcuts in the database
+
+- POST /api/comments
+    - Posts a new comment
+
+- DELETE /api/comments/id
+    - Delete a comment
+
+- POST /api/users
+    - Create an user
+
+- GET /api/users/user_id
+    - Return a registered user
+
+- GET /api/users/images
+    - Return all images created by a user
+
+- POST /login
+  - Authorize an user to login 
+  
 ## Scripts
 
 Start the application `npm start`
